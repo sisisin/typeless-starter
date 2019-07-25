@@ -6,6 +6,7 @@
     "@types/node": "12.6.8",
     "@types/react": "16.8.23",
     "@types/react-dom": "16.8.5",
+    "@types/webpack-env": "^1.14.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
@@ -15,10 +16,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "eject": "react-scripts eject",
+    "_lint": "eslint './src/**/*.{ts,tsx}'",
+    "lint": "yarn _lint",
+    "lint-fix": "yarn _lint --fix",
+    "_prettier": "prettier \"src/**/*.{ts,tsx,json,css,scss}\"",
+    "format": "yarn _prettier --write",
+    "format-check": "yarn _prettier --list-different",
+    "check-style": "yarn format-check && yarn lint"
   },
   "browserslist": {
     "production": [
@@ -31,5 +36,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "navi": "^0.13.3",
+    "plop": "^2.4.0",
+    "prettier": "^1.18.2",
+    "react-navi": "^0.13.3",
+    "rxjs": "^6.5.2",
+    "typeless": "^1.1.1"
+  },
+  "license": "MIT"
 }
