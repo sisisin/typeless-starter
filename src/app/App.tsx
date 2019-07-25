@@ -6,7 +6,7 @@ import { DefaultSuspense } from './components/DefaultSuspense';
 
 const staticRoute: Record<string, Matcher<any, any>> = {
   '*': redirect(() => {
-    return '/not_found';
+    return '/sample';
   }),
 };
 
