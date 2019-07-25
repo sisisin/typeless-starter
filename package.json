@@ -23,7 +23,9 @@
     "_prettier": "prettier \"src/**/*.{ts,tsx,json,css,scss}\"",
     "format": "yarn _prettier --write",
     "format-check": "yarn _prettier --list-different",
-    "check-style": "yarn format-check && yarn lint"
+    "check-style": "yarn format-check && yarn lint",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "browserslist": {
     "production": [
@@ -38,6 +40,11 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addons": "^5.1.9",
+    "@storybook/react": "^5.1.9",
+    "@types/storybook__addon-links": "^3.3.5",
+    "@types/storybook__react": "^4.0.2",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "navi": "^0.13.3",

@@ -1,5 +1,7 @@
 import React from 'react';
+import { getSampleState } from '../interface';
 
 export const SampleView = () => {
-  return (<div>Feature sample</div>);
+  const { foo } = getSampleState.useState();
+  return <div>Feature sample {foo}</div>;
 };

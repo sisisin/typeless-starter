@@ -14,7 +14,7 @@ const initialState: {{pascalCase name}}State = {
 export const reducer = handle.reducer(initialState);
 
 // --- Module ---
-const {{pascalCase name}}Module = () => {
+export const {{pascalCase name}}Module = () => {
   handle();
   return <{{pascalCase name}}View />;
 };

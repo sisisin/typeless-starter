@@ -14,7 +14,7 @@ const initialState: SampleState = {
 export const reducer = handle.reducer(initialState);
 
 // --- Module ---
-const SampleModule = () => {
+export const SampleModule = () => {
   handle();
   return <SampleView />;
 };
