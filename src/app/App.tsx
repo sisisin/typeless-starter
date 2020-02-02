@@ -4,7 +4,7 @@ import React from 'react';
 import { Router, View } from 'react-navi';
 import { DefaultSuspense } from './components/DefaultSuspense';
 
-const staticRoute: Record<string, Matcher<any, any>> = {
+const staticRoute: Record<string, Matcher<object, object>> = {
   '*': redirect(() => {
     return '/sample';
   }),

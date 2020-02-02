@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { handle } from './interface';
 import { SampleModule } from './module';
-import { AppProvider } from 'app/common/storybookHelper';
+import { AppProvider } from 'app/testHelpers/storybook';
 
 handle.reset();
 
