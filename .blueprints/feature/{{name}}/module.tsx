@@ -1,10 +1,9 @@
 import React from 'react';
 import { {{pascalCase name}}View } from './components/{{pascalCase name}}View';
 import { {{pascalCase name}}Actions, {{pascalCase name}}State, handle } from './interface';
-import { route, mount } from 'navi';
 
 // --- Epic ---
-handle.epic();
+const epic = handle.epic();
 
 // --- Reducer ---
 const initialState: {{pascalCase name}}State = {
@@ -14,15 +13,8 @@ const initialState: {{pascalCase name}}State = {
 export const reducer = handle.reducer(initialState);
 
 // --- Module ---
-export const {{pascalCase name}}Module = () => {
+// eslint-disable-next-line import/no-default-export
+export default () => {
   handle();
   return <{{pascalCase name}}View />;
 };
-
-// eslint-disable-next-line import/no-default-export
-export default mount({
-  '/': route({
-    title: '{{pascalCase name}}',
-    view: <{{pascalCase name}}Module></{{pascalCase name}}Module>,
-  }),
-});

@@ -21,7 +21,8 @@
     "fix-lint": "yarn _lint --fix",
     "fix-format": "yarn _prettier --write",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "g": "plop feature"
   },
   "browserslist": {
     "production": [

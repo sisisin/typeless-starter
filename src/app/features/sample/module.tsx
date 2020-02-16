@@ -1,7 +1,6 @@
 import React from 'react';
 import { SampleView } from './components/SampleView';
-import { SampleActions, SampleState, handle } from './interface';
-import { route, mount } from 'navi';
+import { handle, SampleState } from './interface';
 
 // --- Epic ---
 handle.epic();
@@ -20,9 +19,7 @@ export const SampleModule = () => {
 };
 
 // eslint-disable-next-line import/no-default-export
-export default mount({
-  '/': route({
-    title: 'Sample',
-    view: <SampleModule></SampleModule>,
-  }),
-});
+export default () => {
+  handle();
+  return <SampleView />;
+};
