@@ -1,9 +1,15 @@
-import { mount, redirect, route } from 'navi';
+import { mount, redirect, route, createBrowserNavigation } from 'navi';
 
-export const routes = mount({
+const routes = mount({
   '/sample': route({
+    title: 'Sample',
+    getView: () => import('./features/sample/module'),
+  }),
+  '/sample/:id': route({
     title: 'Sample',
     getView: () => import('./features/sample/module'),
   }),
   '*': redirect('/sample'),
 });
+
+export const navigation = createBrowserNavigation({ routes });
