@@ -17,6 +17,21 @@ module.exports = {
   env: { browser: true, jest: true, es6: true },
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'react-router-dom',
+            importNames: ['useLocation', 'useParams', 'useHistory', 'useRouteMatch'],
+            message: "Don't use react-router-dom's hooks directly. You should use useRouteState.ts",
+          },
+          {
+            name: 'react-router',
+          },
+        ],
+      },
+    ],
   },
   overrides: [
     {

@@ -1,11 +1,11 @@
 import React from 'react';
 import { getSampleState } from '../interface';
 import { Link } from 'react-navi';
-import { getRouterState } from 'app/features/router/interface';
+import { useRouter } from 'app/hooks/useRouter';
 
 export const SampleView = () => {
   const { foo } = getSampleState.useState();
-  const { params } = getRouterState.useState();
+  const { params } = useRouter();
   return (
     <>
       <div>Feature sample {foo}</div>
