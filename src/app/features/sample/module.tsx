@@ -3,7 +3,7 @@ import { SampleView } from './components/SampleView';
 import { handle, SampleState } from './interface';
 
 // --- Epic ---
-handle.epic();
+export const epic = handle.epic();
 
 // --- Reducer ---
 const initialState: SampleState = {
@@ -11,12 +11,6 @@ const initialState: SampleState = {
 };
 
 export const reducer = handle.reducer(initialState);
-
-// --- Module ---
-export const SampleModule = () => {
-  handle();
-  return <SampleView />;
-};
 
 // eslint-disable-next-line import/no-default-export
 export default () => {
