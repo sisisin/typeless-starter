@@ -1,7 +1,9 @@
-import React from 'react';
-import { BrowserRouter as Router, Link, Route, Switch, generatePath, Redirect, RouteProps } from 'react-router-dom';
-import { useRouter } from 'app/hooks/useRouter';
 import loadable from '@loadable/component';
+import { useRouter } from 'app/hooks/useRouter';
+import { appHistory } from 'app/services/appHistory';
+import React from 'react';
+import { Redirect, Route, RouteProps, Router, Switch } from 'react-router-dom';
+import { HeaderMenu } from './HeaderMenu';
 
 const auth = new (class {
   isLoggedIn = false;
@@ -14,76 +16,48 @@ const auth = new (class {
 })();
 const SampleModule = loadable(() => import('app/features/sample/module'));
 
-type AppRouteProps = Omit<RouteProps, 'exact' | 'sensitive' | 'strict' | 'location'> & {
+type AppRouteProps = {
   path: string | string[];
+  children: React.ReactNode;
+  requiresAuth: boolean;
 };
 
-const AppRoute: React.FC<AppRouteProps> = ({ children, ...rest }) => (
-  <Route {...rest} exact sensitive children={children}></Route>
-);
-const PublicRoute: React.FC<AppRouteProps> = ({ children, ...rest }) => {
-  return <AppRoute {...rest} children={children}></AppRoute>;
+const defineAppRoute = ({ requiresAuth, path, children }: AppRouteProps, key: string | number) => {
+  const base: RouteProps & { key: string | number } = { key, exact: true, sensitive: true, path };
+  if (requiresAuth) {
+    return (
+      <Route
+        {...base}
+        render={() => (auth.isLoggedIn ? children : <Redirect key={key} to="/login"></Redirect>)}
+      ></Route>
+    );
+  } else {
+    return <Route {...base}>{children}</Route>;
+  }
 };
 
-const Menu = () => {
+const routes: AppRouteProps[] = [
+  { path: '/sample', requiresAuth: true, children: <SampleModule></SampleModule> },
+  { path: '/sample/:id', requiresAuth: true, children: <SampleModule></SampleModule> },
+  { path: '/login', requiresAuth: false, children: <Login></Login> },
+  {
+    path: '/authed',
+    requiresAuth: true,
+    children: <div>ok!</div>,
+  },
+];
+export const AppRoutes: React.FC = (props) => {
   return (
-    <>
-      <div>
-        <Link to="/x">x</Link>
-      </div>
-      <div>
-        <Link to="/x/1">x1</Link>
-      </div>
-      <div>
-        <Link to={{ pathname: '/n' }}>nested</Link>
-      </div>
-      <div>
-        <Link to={{ pathname: '/login' }}>login page</Link>
-      </div>
-      <div>
-        <Link to={{ pathname: '/authed' }}>authed</Link>
-      </div>
-      <div>
-        <Link to="/no_matched">no_matched</Link>
-      </div>
-      <hr></hr>
-    </>
-  );
-};
-export const AppRoutes: React.FC = () => {
-  return (
-    <Router>
-      <Menu></Menu>
+    <Router history={(appHistory as any).history}>
+      <HeaderMenu></HeaderMenu>
       <Switch>
-        <AppRoute path="/sample">
-          <SampleModule></SampleModule>
-        </AppRoute>
-        <Route exact path="/x">
-          <div>x</div>
-        </Route>
-        <Route path="/x/:id">
-          <L>
-            <div>xid</div>
-          </L>
-        </Route>
-        <Route path="/n">
-          <Nested></Nested>
-        </Route>
-        <Route path="/login">
-          <Authed></Authed>
-        </Route>
-        <Route
-          path="/authed"
-          render={(p) => {
-            return auth.isLoggedIn ? <div>ok!</div> : <Redirect to="/login"></Redirect>;
-          }}
-        ></Route>
+        {routes.map(defineAppRoute)}
         <Route path="*">not found...</Route>
       </Switch>
     </Router>
   );
 };
-function Authed() {
+function Login() {
   const h = useRouter().history;
   return (
     <div>
@@ -98,27 +72,4 @@ function Authed() {
       </button>
     </div>
   );
-}
-function Nested() {
-  const h = useRouter().history;
-
-  return (
-    <div>
-      <button
-        onClick={() => {
-          const to = generatePath('/x', {});
-          console.log(to);
-          h.push(to);
-        }}
-      >
-        push
-      </button>
-      <div>nested</div>
-    </div>
-  );
-}
-function L(props: any) {
-  useRouter();
-
-  return props.children;
 }
