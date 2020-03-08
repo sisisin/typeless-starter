@@ -1,3 +1,9 @@
+/** @type {import('eslint').Linter.Config.rules} */
+const looseRules = {
+  '@typescript-eslint/no-explicit-any': 'off',
+  '@typescript-eslint/no-non-null-assertion': 'off',
+};
+
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
   extends: [
@@ -43,9 +49,15 @@ module.exports = {
     },
     {
       files: ['*.test.ts', 'src/app/testHelpers/*'],
-      rules: {
-        '@typescript-eslint/no-explicit-any': 'off',
+      rules: looseRules,
+    },
+    {
+      files: ['scripts/**/*.ts'],
+      parserOptions: {
+        useJSXTextNode: true,
+        project: './scripts/tsconfig.json',
       },
+      rules: looseRules,
     },
   ],
 };

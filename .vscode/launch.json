@@ -10,9 +10,7 @@
       "name": "routesGenerator",
       "program": "${workspaceFolder}/scripts/dist/routesGenerator.js",
       "sourceMaps": true,
-      "outFiles": [
-        "${workspaceFolder}/build/dist/**/*.js"
-      ]
+      "outFiles": ["${workspaceFolder}/build/dist/**/*.js"]
     }
   ]
 }

@@ -16,7 +16,7 @@
     "verify-type": "tsc",
     "verify-format": "yarn _prettier --list-different",
     "_lint": "eslint --ext js,jsx,ts,tsx .",
-    "_prettier": "prettier \"src/**/*.{json,css,scss}\"",
+    "_prettier": "prettier \"**/*.{json,css,scss}\"",
     "fix": "run-p fix-*",
     "fix-lint": "yarn _lint --fix",
     "fix-format": "yarn _prettier --write",

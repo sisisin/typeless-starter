@@ -15,11 +15,7 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
-  "include": [
-    "*.ts"
-  ]
+  "include": ["*.ts"]
 }
