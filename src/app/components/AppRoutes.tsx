@@ -1,13 +1,12 @@
 import loadable from '@loadable/component';
-import { SessionActions } from 'app/features/session/interface';
 import { appHistory } from 'app/services/appHistory';
 import React from 'react';
 import { Redirect, Route, RouteProps, Router, Switch } from 'react-router-dom';
-import { useActions } from 'typeless';
 import { HeaderMenu } from './HeaderMenu';
 import { useIsLoggedIn } from 'app/features/session/selector';
 
 const SampleModule = loadable(() => import('app/features/sample/module'));
+const LoginModule = loadable(() => import('app/features/login/module'));
 
 type AppRouteProps = {
   path: string | string[];
@@ -18,7 +17,7 @@ type AppRouteProps = {
 const routes: AppRouteProps[] = [
   { path: '/sample', requiresAuth: true, children: <SampleModule></SampleModule> },
   { path: '/sample/:id', requiresAuth: true, children: <SampleModule></SampleModule> },
-  { path: '/login', requiresAuth: false, children: <Login></Login> },
+  { path: '/login', requiresAuth: false, children: <LoginModule></LoginModule> },
   {
     path: '/authed',
     requiresAuth: true,
@@ -44,6 +43,7 @@ const useRouteDefinitions = () => {
 
 export const AppRoutes: React.FC = (props) => {
   return (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Router history={(appHistory as any).history}>
       <HeaderMenu></HeaderMenu>
       <Switch>
@@ -53,12 +53,3 @@ export const AppRoutes: React.FC = (props) => {
     </Router>
   );
 };
-function Login() {
-  const { loginSucceeded } = useActions(SessionActions);
-  return (
-    <div>
-      <div>login!</div>
-      <button onClick={() => loginSucceeded({ name: 'hoge' })}>submit</button>
-    </div>
-  );
-}
