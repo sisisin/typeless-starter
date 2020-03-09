@@ -2,7 +2,7 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { handle } from './interface';
-import {{pascalCase name}}Module from './module';
+import { {{pascalCase name}}Module } from './module';
 import { AppProvider } from 'app/testHelpers/storybook';
 
 handle.reset();

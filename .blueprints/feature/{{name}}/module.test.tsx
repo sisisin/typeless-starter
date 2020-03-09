@@ -1,7 +1,13 @@
-import { reducer } from './module';
+import { reducer, epic } from './module';
 
-describe('reducer', () => {
-  it('exists reducer', () => {
+describe('{{pascalCase name}} reducer', () => {
+  it('is exists', () => {
     expect(reducer).toBeTruthy();
+  });
+});
+
+describe('{{pascalCase name}} epic', () => {
+  it('is exists', () => {
+    expect(epic).toBeTruthy();
   });
 });

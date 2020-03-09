@@ -13,8 +13,7 @@ const initialState: {{pascalCase name}}State = {
 export const reducer = handle.reducer(initialState);
 
 // --- Module ---
-// eslint-disable-next-line import/no-default-export
-export default () => {
+export const {{pascalCase name}}Module = () => {
   handle();
   return <{{pascalCase name}}View />;
 };
