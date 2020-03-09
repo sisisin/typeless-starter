@@ -48,7 +48,7 @@ module.exports = {
       },
     },
     {
-      files: ['*.test.ts', 'src/app/testHelpers/*'],
+      files: ['*.test.ts', '*.test.tsx', 'src/app/testHelpers/*'],
       rules: looseRules,
     },
     {

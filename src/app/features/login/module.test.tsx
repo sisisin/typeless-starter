@@ -1,7 +1,7 @@
-import { reducer } from './module';
+import { epic } from './module';
 
-describe('reducer', () => {
-  it('exists reducer', () => {
-    expect(reducer).toBeTruthy();
+describe('epic', () => {
+  it('exists epic', () => {
+    expect(epic).toBeTruthy();
   });
 });
