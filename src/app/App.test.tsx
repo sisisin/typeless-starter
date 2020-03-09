@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import { App } from './App';
 import { appHistory } from './services/appHistory';
+import { LoginModule } from 'app/features/login/module';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -26,5 +27,5 @@ it('renders login', async () => {
   );
   appHistory.push('/login');
   await lazyRoutes.find(({ path }) => path === '/login')!.Component.load();
-  expect(node!.toJSON()).toMatchSnapshot();
+  expect(node.root.findByType(LoginModule)!.type).toStrictEqual(LoginModule);
 });

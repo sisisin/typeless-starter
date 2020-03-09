@@ -12,8 +12,7 @@ const initialState: SampleState = {
 
 export const reducer = handle.reducer(initialState);
 
-// eslint-disable-next-line import/no-default-export
-export default () => {
+export const SampleModule = () => {
   handle();
   return <SampleView />;
 };

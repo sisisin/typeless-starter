@@ -4,9 +4,6 @@ import React from 'react';
 import { Redirect, Route, RouteProps, Switch } from 'react-router-dom';
 import { HeaderMenu } from './HeaderMenu';
 
-const SampleModule = loadable(() => import('app/features/sample/module'));
-const LoginModule = loadable(() => import('app/features/login/module'));
-
 type Base = {
   path: string | string[];
   requiresAuth: boolean;
@@ -19,9 +16,21 @@ type AppLazyRouteProps = Base & {
 };
 
 export const lazyRoutes: AppLazyRouteProps[] = [
-  { path: '/sample', requiresAuth: true, Component: SampleModule },
-  { path: '/sample/:id', requiresAuth: true, Component: SampleModule },
-  { path: '/login', requiresAuth: false, Component: LoginModule },
+  {
+    path: '/sample',
+    requiresAuth: true,
+    Component: loadable(() => import('app/features/sample/module').then((m) => ({ default: m.SampleModule }))),
+  },
+  {
+    path: '/sample/:id',
+    requiresAuth: true,
+    Component: loadable(() => import('app/features/sample/module').then((m) => ({ default: m.SampleModule }))),
+  },
+  {
+    path: '/login',
+    requiresAuth: false,
+    Component: loadable(() => import('app/features/login/module').then((m) => ({ default: m.LoginModule }))),
+  },
 ];
 const routes: AppRouteProps[] = [
   {
