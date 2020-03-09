@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders login 1`] = `
+Array [
+  <div>
+    <a
+      href="/sample"
+      onClick={[Function]}
+    >
+      sample 
+    </a>
+  </div>,
+  <div>
+    <a
+      href="/login"
+      onClick={[Function]}
+    >
+      login page
+    </a>
+  </div>,
+  <div>
+    <a
+      href="/authed"
+      onClick={[Function]}
+    >
+      authed
+    </a>
+  </div>,
+  <div>
+    <a
+      href="/no_matched"
+      onClick={[Function]}
+    >
+      no_matched
+    </a>
+  </div>,
+  <hr />,
+  <div>
+    <div>
+      login!
+    </div>
+    <button
+      onClick={[Function]}
+    >
+      submit
+    </button>
+  </div>,
+]
+`;

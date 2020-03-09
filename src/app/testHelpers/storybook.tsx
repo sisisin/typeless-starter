@@ -1,6 +1,15 @@
 import React from 'react';
-import { DefaultTypelessProvider } from 'typeless';
+import { MemoryRouter } from 'react-router-dom';
+import { Registry, TypelessContext } from 'typeless';
 
 export const AppProvider: React.FC = (props) => {
-  return <DefaultTypelessProvider>{props.children}</DefaultTypelessProvider>;
+  return (
+    <TypelessContext.Provider value={{ registry: new Registry() }}>
+      <MemoryRouter>{props.children}</MemoryRouter>
+    </TypelessContext.Provider>
+  );
+};
+
+export const TestProvider: React.FC = (props) => {
+  return <TypelessContext.Provider value={{ registry: new Registry() }}>{props.children}</TypelessContext.Provider>;
 };
