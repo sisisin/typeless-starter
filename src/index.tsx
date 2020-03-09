@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import { Hmr, startHmr, DefaultTypelessProvider } from 'typeless';
+import { Hmr, startHmr, TypelessContext } from 'typeless';
+import { AppRegistry } from 'app/services/AppRegistry';
+const appRegistry = new AppRegistry();
 
 const MOUNT_NODE = document.getElementById('root');
 
@@ -14,9 +16,9 @@ const render = () => {
   ReactDOM.unmountComponentAtNode(MOUNT_NODE);
   ReactDOM.render(
     <Hmr>
-      <DefaultTypelessProvider>
+      <TypelessContext.Provider value={{ registry: appRegistry }}>
         <App />
-      </DefaultTypelessProvider>
+      </TypelessContext.Provider>
     </Hmr>,
     MOUNT_NODE,
   );
