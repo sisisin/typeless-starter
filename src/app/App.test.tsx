@@ -1,11 +1,10 @@
-import { routes } from 'app/components/AppRoutes';
+import { LoginModule } from 'app/features/login/module';
 import { TestProvider } from 'app/testHelpers/storybook';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import { App } from './App';
-import { appHistory } from './services/appHistory';
-import { LoginModule } from 'app/features/login/module';
+import { navigateAndWaitRendered } from './testHelpers/unitTest';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -25,7 +24,6 @@ it('renders login', async () => {
       <App></App>
     </TestProvider>,
   );
-  appHistory.push('/login');
-  await routes.find(({ path }) => path === '/login')!.Component.load();
-  expect(node.root.findByType(LoginModule)!.type).toStrictEqual(LoginModule);
+  await navigateAndWaitRendered('/login');
+  expect(node).toRenderComponent(LoginModule);
 });

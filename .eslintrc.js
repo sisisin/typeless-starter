@@ -22,6 +22,7 @@ module.exports = {
   },
   env: { browser: true, jest: true, es6: true },
   rules: {
+    // '@typescript-eslint/no-floating-promises': 'error',
     '@typescript-eslint/explicit-function-return-type': 'off',
     'no-restricted-imports': [
       'error',
@@ -48,7 +49,7 @@ module.exports = {
       },
     },
     {
-      files: ['*.test.ts', '*.test.tsx', 'src/app/testHelpers/*'],
+      files: ['*.test.ts', '*.test.tsx', 'src/setupTests.ts', 'src/app/testHelpers/*'],
       rules: looseRules,
     },
     {

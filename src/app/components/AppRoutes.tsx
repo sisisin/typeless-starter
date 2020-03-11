@@ -5,28 +5,41 @@ import { Redirect, Route, RouteProps, Switch } from 'react-router-dom';
 import { HeaderMenu } from './HeaderMenu';
 
 type AppRouteProps = {
-  path: string | string[];
-  requiresAuth: boolean;
-  Component: LoadableComponent<unknown>;
+  readonly path: string | string[];
+  readonly requiresAuth: boolean;
+  readonly Component: LoadableComponent<unknown>;
 };
 
-export const routes: AppRouteProps[] = [
+export const routes = [
   {
     path: '/sample',
     requiresAuth: true,
-    Component: loadable(() => import('app/features/sample/module').then((m) => ({ default: m.SampleModule }))),
+    Component: loadable(() =>
+      import('app/features/sample/module').then((m) => ({ default: m.SampleModule })),
+    ) as LoadableComponent<unknown>,
   },
   {
     path: '/sample/:id',
     requiresAuth: true,
-    Component: loadable(() => import('app/features/sample/module').then((m) => ({ default: m.SampleModule }))),
+    Component: loadable(() =>
+      import('app/features/sample/module').then((m) => ({ default: m.SampleModule })),
+    ) as LoadableComponent<unknown>,
   },
   {
     path: '/login',
     requiresAuth: false,
-    Component: loadable(() => import('app/features/login/module').then((m) => ({ default: m.LoginModule }))),
+    Component: loadable(() =>
+      import('app/features/login/module').then((m) => ({ default: m.LoginModule })),
+    ) as LoadableComponent<unknown>,
   },
-];
+] as const;
+type RouteDefinitions = typeof routes;
+export type AppRoutePaths = RouteDefinitions[number]['path'];
+
+type ValidateRouteDefinitions = RouteDefinitions extends readonly AppRouteProps[] ? true : never;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const x: ValidateRouteDefinitions = true;
 
 export const AppRoutes: React.FC = () => {
   const isLoggedIn = useIsLoggedIn();
