@@ -1,5 +1,5 @@
 import { LoginModule } from 'app/features/login/module';
-import { TestProvider } from 'app/testHelpers/storybook';
+import { TestProvider } from 'app/testHelpers/unitTest';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';

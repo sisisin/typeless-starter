@@ -9,7 +9,3 @@ export const AppProvider: React.FC = (props) => {
     </TypelessContext.Provider>
   );
 };
-
-export const TestProvider: React.FC = (props) => {
-  return <TypelessContext.Provider value={{ registry: new Registry() }}>{props.children}</TypelessContext.Provider>;
-};
