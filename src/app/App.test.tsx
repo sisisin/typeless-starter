@@ -1,4 +1,4 @@
-import { lazyRoutes } from 'app/components/AppRoutes';
+import { routes } from 'app/components/AppRoutes';
 import { TestProvider } from 'app/testHelpers/storybook';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -26,6 +26,6 @@ it('renders login', async () => {
     </TestProvider>,
   );
   appHistory.push('/login');
-  await lazyRoutes.find(({ path }) => path === '/login')!.Component.load();
+  await routes.find(({ path }) => path === '/login')!.Component.load();
   expect(node.root.findByType(LoginModule)!.type).toStrictEqual(LoginModule);
 });
