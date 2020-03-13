@@ -6,42 +6,59 @@ import { HeaderMenu } from './HeaderMenu';
 import { useRouter } from 'app/hooks/useRouter';
 
 type AppRouteProps = {
-  readonly path: string | readonly string[];
-  readonly requiresAuth: boolean;
-  readonly Component: LoadableComponent<unknown>;
+  [key: string]: {
+    readonly path: string | readonly string[];
+    readonly params?: readonly string[];
+    readonly queryParams?: readonly string[];
+    readonly requiresAuth: boolean;
+    readonly Component: LoadableComponent<unknown>;
+  };
 };
 
-export const routes = [
-  {
+export const routes = {
+  home: {
     path: ['/', '/sample'],
     requiresAuth: true,
     Component: loadable(() =>
       import('app/features/sample/module').then((m) => ({ default: m.SampleModule })),
     ) as LoadableComponent<unknown>,
   },
-  {
+  sampleWithId: {
     path: '/sample/:id',
+    params: ['id'],
     requiresAuth: true,
     Component: loadable(() =>
       import('app/features/sample/module').then((m) => ({ default: m.SampleModule })),
     ) as LoadableComponent<unknown>,
   },
-  {
+  login: {
     path: '/login',
+    queryParams: ['from'],
     requiresAuth: false,
     Component: loadable(() =>
       import('app/features/login/module').then((m) => ({ default: m.LoginModule })),
     ) as LoadableComponent<unknown>,
   },
-] as const;
+} as const;
 
 type RouteDefinitions = typeof routes;
-type ToPathUnionType<T extends [] | readonly [AppRouteProps, ...AppRouteProps[]]> = {
-  [P in keyof T]: T[P] extends { path: infer U } ? (U extends readonly string[] ? U[number] : U) : never;
-}[number];
-export type AppRoutePaths = ToPathUnionType<RouteDefinitions>;
+export type AppRoutePaths = {
+  [K in keyof RouteDefinitions]: Merge<
+    { path: ToUnion<RouteDefinitions[K]['path']> },
+    RouteDefinitions[K] extends { params: infer V } ? { params: ToStringObject<ToUnion<V>> } : { params?: never },
+    RouteDefinitions[K] extends { queryParams: infer W }
+      ? { queryParams: Partial<ToStringObject<ToUnion<W>>> }
+      : { queryParams?: never }
+  >;
+};
+type Merge<T extends object, U extends object, V extends object> = { [K in keyof T]: T[K] } &
+  { [K in keyof U]: U[K] } &
+  { [K in keyof V]: V[K] };
 
-type ValidateRouteDefinitions = RouteDefinitions extends readonly AppRouteProps[] ? true : never;
+type ToUnion<T> = T extends readonly string[] ? T[number] : T;
+type ToStringObject<T> = T extends string ? { [P in T]: string } : never;
+
+type ValidateRouteDefinitions = RouteDefinitions extends AppRouteProps ? true : never;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const x: ValidateRouteDefinitions = true;
@@ -60,7 +77,7 @@ export const AppRoutes: React.FC = () => {
     <>
       <HeaderMenu></HeaderMenu>
       <Switch>
-        {routes.map(({ requiresAuth, path, Component }, key) => {
+        {Object.values(routes).map(({ requiresAuth, path, Component }, key) => {
           const base: RouteProps & { key: React.Key } = {
             key,
             exact: true,
