@@ -34,13 +34,11 @@ export const routes = [
     ) as LoadableComponent<unknown>,
   },
 ] as const;
+
 type RouteDefinitions = typeof routes;
 type ToPathUnionType<T extends [] | readonly [AppRouteProps, ...AppRouteProps[]]> = {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
-  [P in keyof T]: T[P]['path'] extends readonly string[] ? T[P]['path'][number] : T[P]['path'];
+  [P in keyof T]: T[P] extends { path: infer U } ? (U extends readonly string[] ? U[number] : U) : never;
 }[number];
-
 export type AppRoutePaths = ToPathUnionType<RouteDefinitions>;
 
 type ValidateRouteDefinitions = RouteDefinitions extends readonly AppRouteProps[] ? true : never;
