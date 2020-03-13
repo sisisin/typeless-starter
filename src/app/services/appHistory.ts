@@ -1,5 +1,5 @@
 import { createBrowserHistory, History, LocationState } from 'history';
-import { AppRoutePaths } from 'app/components/AppRoutes';
+import { AppRoutePaths } from 'app/types/AppRouteDefinitions';
 import { generatePath } from 'react-router-dom';
 
 type PushOption = {

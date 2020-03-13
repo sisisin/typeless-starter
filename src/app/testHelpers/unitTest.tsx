@@ -1,4 +1,4 @@
-import { AppRoutePaths, routes } from 'app/components/AppRoutes';
+import { AppRoutePaths, appRouteDefinitions } from 'app/types/AppRouteDefinitions';
 import { appHistory } from 'app/services/appHistory';
 import React from 'react';
 import { Action, Deps, Epic, Registry, TypelessContext } from 'typeless';
@@ -6,7 +6,7 @@ import * as Rx from 'typeless/rx';
 
 export async function navigateAndWaitRendered<T extends keyof AppRoutePaths>(identity: T, option: AppRoutePaths[T]) {
   appHistory.push(identity, option);
-  await routes[identity].Component.load();
+  await appRouteDefinitions[identity].Component.load();
 }
 
 export const TestProvider: React.FC = (props) => {
