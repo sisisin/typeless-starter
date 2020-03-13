@@ -3,7 +3,9 @@ import { handle, SessionActions, SessionState } from './interface';
 
 // --- Epic ---
 export const epic = handle.epic().on(SessionActions.loginSucceeded, () => {
-  appHistory.push('/authed');
+  const from = appHistory.location.searchParams.get('from');
+  const to = from ? decodeURIComponent(from) : '/';
+  appHistory.push(to);
   return null;
 });
 
