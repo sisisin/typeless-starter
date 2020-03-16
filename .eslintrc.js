@@ -38,9 +38,6 @@ module.exports = {
             importNames: ['Link'],
             message: "Don't use react-router-dom's Link Component directly. You should use Link.tsx",
           },
-          {
-            name: 'react-router',
-          },
         ],
       },
     ],
