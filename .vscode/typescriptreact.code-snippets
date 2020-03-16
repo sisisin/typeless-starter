@@ -1,0 +1,21 @@
+{
+  "react function component file": {
+    "prefix": "react file",
+    "body": [
+      "import React from 'react';",
+      "",
+      "export const ${TM_FILENAME_BASE}: React.FC = (props) => {",
+      "  return ($1);",
+      "};",
+      ""
+    ]
+  },
+  "react function component": {
+    "prefix": "react function",
+    "body": ["const $1: React.FC<$2> = ({$3}) => {", "  return ($4);", "};", ""]
+  },
+  "typeless rx import": {
+    "prefix": "Rx",
+    "body": "import * as Rx from 'typeless/rx';"
+  }
+}

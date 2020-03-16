@@ -1,12 +1,13 @@
 import loadable, { LoadableComponent } from '@loadable/component';
 import { ToUnion, ToStringObject } from 'app/types/utility';
+import { AuthGuardType } from './AuthGuardType';
 
 type RouteDefinitionsBase = {
   [key: string]: {
     readonly path: string | readonly string[];
     readonly params?: readonly string[];
     readonly queryParams?: readonly string[];
-    readonly requiresAuth: boolean;
+    readonly authGuardType: AuthGuardType;
     readonly Component: LoadableComponent<unknown>;
   };
 };
@@ -14,7 +15,7 @@ type RouteDefinitionsBase = {
 export const appRouteDefinitions = {
   home: {
     path: ['/', '/sample'],
-    requiresAuth: true,
+    authGuardType: 'private',
     Component: loadable(() =>
       import('app/features/sample/module').then((m) => ({ default: m.SampleModule })),
     ) as LoadableComponent<unknown>,
@@ -22,7 +23,7 @@ export const appRouteDefinitions = {
   sampleWithId: {
     path: '/sample/:id',
     params: ['id'],
-    requiresAuth: true,
+    authGuardType: 'private',
     Component: loadable(() =>
       import('app/features/sample/module').then((m) => ({ default: m.SampleModule })),
     ) as LoadableComponent<unknown>,
@@ -30,7 +31,7 @@ export const appRouteDefinitions = {
   login: {
     path: '/login',
     queryParams: ['from'],
-    requiresAuth: false,
+    authGuardType: 'publicWithRedirectIfLoggedIn',
     Component: loadable(() =>
       import('app/features/login/module').then((m) => ({ default: m.LoginModule })),
     ) as LoadableComponent<unknown>,

@@ -4,22 +4,39 @@ import { Redirect, Route, RouteProps, Switch } from 'react-router-dom';
 import { HeaderMenu } from './HeaderMenu';
 import { useRouter } from 'app/hooks/useRouter';
 import { appRouteDefinitions } from 'app/types/AppRouteDefinitions';
+import { AuthGuardType } from 'app/types/AuthGuardType';
 
-const RedirectToLogin: React.FC = () => {
+const AuthGuard: React.FC<{ authGuardType: AuthGuardType }> = ({ authGuardType, children }) => {
+  const isLoggedIn = useIsLoggedIn();
   const { location } = useRouter();
 
-  const from = encodeURIComponent(location.pathAfter);
-  const login = `/login?${new URLSearchParams({ from }).toString()}`;
-  return <Redirect to={login}></Redirect>;
+  switch (authGuardType) {
+    case 'public': {
+      return <>{children}</>;
+    }
+    case 'publicWithRedirectIfLoggedIn': {
+      const from = location.searchParams.get('from');
+      const to = from === null ? '/' : decodeURIComponent(from);
+      return isLoggedIn ? <Redirect to={to}></Redirect> : <>{children}</>;
+    }
+    case 'private': {
+      const to = `/login?${new URLSearchParams({ from: location.pathAfter }).toString()}`;
+      return isLoggedIn ? <>{children}</> : <Redirect to={to}></Redirect>;
+    }
+    default: {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const assertion: never = authGuardType;
+      return assertion;
+    }
+  }
 };
-export const AppRoutes: React.FC = () => {
-  const isLoggedIn = useIsLoggedIn();
 
+export const AppRoutes: React.FC = () => {
   return (
     <>
       <HeaderMenu></HeaderMenu>
       <Switch>
-        {Object.values(appRouteDefinitions).map(({ requiresAuth, path, Component }, key) => {
+        {Object.values(appRouteDefinitions).map(({ authGuardType, path, Component }, key) => {
           const base: RouteProps & { key: React.Key } = {
             key,
             exact: true,
@@ -27,16 +44,13 @@ export const AppRoutes: React.FC = () => {
             path: path as string | string[],
           };
 
-          if (requiresAuth) {
-            return (
-              <Route
-                {...base}
-                render={() => (isLoggedIn ? <Component></Component> : <RedirectToLogin></RedirectToLogin>)}
-              ></Route>
-            );
-          } else {
-            return <Route {...base} component={Component}></Route>;
-          }
+          return (
+            <Route {...base}>
+              <AuthGuard authGuardType={authGuardType}>
+                <Component></Component>
+              </AuthGuard>
+            </Route>
+          );
         })}
         <Route path="*">not found...</Route>
       </Switch>
