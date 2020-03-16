@@ -5,6 +5,7 @@ import { HeaderMenu } from './HeaderMenu';
 import { useRouter } from 'app/hooks/useRouter';
 import { appRouteDefinitions } from 'app/types/AppRouteDefinitions';
 import { AuthGuardType } from 'app/types/AuthGuardType';
+import { assertNever } from 'app/types/typeAssertions';
 
 const AuthGuard: React.FC<{ authGuardType: AuthGuardType }> = ({ authGuardType, children }) => {
   const isLoggedIn = useIsLoggedIn();
@@ -23,11 +24,8 @@ const AuthGuard: React.FC<{ authGuardType: AuthGuardType }> = ({ authGuardType, 
       const to = `/login?${new URLSearchParams({ from: location.pathAfter }).toString()}`;
       return isLoggedIn ? <>{children}</> : <Redirect to={to}></Redirect>;
     }
-    default: {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const assertion: never = authGuardType;
-      return assertion;
-    }
+    default:
+      return assertNever(authGuardType);
   }
 };
 
