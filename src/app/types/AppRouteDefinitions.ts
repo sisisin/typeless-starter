@@ -1,5 +1,5 @@
 import loadable, { LoadableComponent } from '@loadable/component';
-import { Merge, ToUnion, ToStringObject } from 'app/types/utility';
+import { ToUnion, ToStringObject } from 'app/types/utility';
 
 type RouteDefinitionsBase = {
   [key: string]: {
@@ -37,18 +37,28 @@ export const appRouteDefinitions = {
   },
 } as const;
 
-type RouteDefinitions = typeof appRouteDefinitions;
-export type AppRoutePaths = {
-  [K in keyof RouteDefinitions]: Merge<
-    { path: ToUnion<RouteDefinitions[K]['path']> },
-    RouteDefinitions[K] extends { params: infer V } ? { params: ToStringObject<ToUnion<V>> } : { params?: never },
-    RouteDefinitions[K] extends { queryParams: infer W }
-      ? { queryParams: Partial<ToStringObject<ToUnion<W>>> }
-      : { queryParams?: never }
-  >;
+// route definition type
+type RD = typeof appRouteDefinitions;
+type Paths = {
+  [K in keyof RD]: { path: ToUnion<RD[K]['path']> };
+};
+type Params = {
+  [K in keyof RD]: RD[K] extends { params: infer V } ? { params: ToStringObject<ToUnion<V>> } : {};
+};
+type QueryParams = {
+  [K in keyof RD]: RD[K] extends { queryParams: infer W } ? { queryParams: Partial<ToStringObject<ToUnion<W>>> } : {};
 };
 
-type ValidateRouteDefinitions = RouteDefinitions extends RouteDefinitionsBase ? true : never;
+export type AppPaths = Paths[keyof Paths]['path'];
+export type GetSourceFromPath<T extends AppPaths> = {
+  [K in keyof RD]: RD[K] extends { path: T } ? Paths[K] & Params[K] & QueryParams[K] : never;
+}[keyof RD];
+export type GetOptionFromPath<T extends AppPaths> = {
+  [K in keyof RD]: RD[K] extends { path: T } ? Params[K] & QueryParams[K] : never;
+}[keyof RD];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const x: ValidateRouteDefinitions = true;
+// note: this is checking type of `RouteDefinitions`
+type ValidateRouteDefinitions = RD extends RouteDefinitionsBase ? true : never;
+export function validateRouteDefinitions(): ValidateRouteDefinitions {
+  return true;
+}

@@ -31,7 +31,12 @@ module.exports = {
           {
             name: 'react-router-dom',
             importNames: ['useLocation', 'useParams', 'useHistory', 'useRouteMatch'],
-            message: "Don't use react-router-dom's hooks directly. You should use useRouteState.ts",
+            message: "Don't use react-router-dom's hooks directly. You should use useRouter.ts",
+          },
+          {
+            name: 'react-router-dom',
+            importNames: ['Link'],
+            message: "Don't use react-router-dom's Link Component directly. You should use Link.tsx",
           },
           {
             name: 'react-router',
