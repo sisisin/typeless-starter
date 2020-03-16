@@ -1,20 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { TypedLink, AnyLink } from 'app/components/Link';
 
 export const HeaderMenu = () => {
   return (
     <>
       <div>
-        <Link to={{ pathname: '/sample' }}>sample </Link>
+        <TypedLink path="/sample">sample </TypedLink>
       </div>
       <div>
-        <Link to={{ pathname: '/login' }}>login page</Link>
+        <TypedLink path="/login">login page</TypedLink>
       </div>
       <div>
-        <Link to={{ pathname: '/authed' }}>authed</Link>
+        <AnyLink path="/authed">authed</AnyLink>
       </div>
       <div>
-        <Link to="/no_matched">no_matched</Link>
+        <AnyLink path="/no_matched">no_matched</AnyLink>
       </div>
       <hr></hr>
     </>

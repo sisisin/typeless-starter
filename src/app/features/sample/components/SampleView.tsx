@@ -1,6 +1,6 @@
 import React from 'react';
 import { getSampleState } from '../interface';
-import { Link } from 'react-router-dom';
+import { TypedLink } from 'app/components/Link';
 import { useRouter } from 'app/hooks/useRouter';
 
 export const SampleView = () => {
@@ -11,10 +11,12 @@ export const SampleView = () => {
       <div>Feature sample {foo}</div>
       <div>params: {JSON.stringify(params, null, '  ')}</div>
       <div>
-        <Link to="/sample">sample</Link>
+        <TypedLink path="/sample">sample</TypedLink>
       </div>
       <div>
-        <Link to="/sample/15">with path route</Link>
+        <TypedLink path="/sample/:id" params={{ id: '15' }}>
+          with path route
+        </TypedLink>
       </div>
     </>
   );

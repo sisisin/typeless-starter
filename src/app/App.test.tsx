@@ -24,6 +24,6 @@ it('renders login', async () => {
       <App></App>
     </TestProvider>,
   );
-  await navigateAndWaitRendered('login', { path: '/login', queryParams: {} });
+  await navigateAndWaitRendered('/login', { queryParams: {} });
   expect(node).toRenderComponent(LoginModule);
 });

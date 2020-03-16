@@ -47,15 +47,15 @@ type Params = {
   [K in keyof RD]: RD[K] extends { params: infer V } ? { params: ToStringObject<ToUnion<V>> } : {};
 };
 type QueryParams = {
-  [K in keyof RD]: RD[K] extends { queryParams: infer W } ? { queryParams: Partial<ToStringObject<ToUnion<W>>> } : {};
+  [K in keyof RD]: RD[K] extends { queryParams: infer W } ? { queryParams?: Partial<ToStringObject<ToUnion<W>>> } : {};
 };
 
 export type AppPaths = Paths[keyof Paths]['path'];
 export type GetSourceFromPath<T extends AppPaths> = {
-  [K in keyof RD]: RD[K] extends { path: T } ? Paths[K] & Params[K] & QueryParams[K] : never;
+  [K in keyof RD]: T extends ToUnion<RD[K]['path']> ? Paths[K] & Params[K] & QueryParams[K] : never;
 }[keyof RD];
 export type GetOptionFromPath<T extends AppPaths> = {
-  [K in keyof RD]: RD[K] extends { path: T } ? Params[K] & QueryParams[K] : never;
+  [K in keyof RD]: T extends ToUnion<RD[K]['path']> ? Params[K] & QueryParams[K] : never;
 }[keyof RD];
 
 // note: this is checking type of `RouteDefinitions`
