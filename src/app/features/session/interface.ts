@@ -4,7 +4,7 @@ import { User } from 'app/types/User';
 
 // --- Actions ---
 export const [handle, SessionActions, getSessionState] = createModule(SessionSymbol)
-  .withActions({ loginSucceeded: (user: User) => ({ payload: { user } }) })
+  .withActions({ $mounted: null, loginSucceeded: (user: User) => ({ payload: { user } }) })
   .withState<SessionState>();
 
 // --- Types ---
