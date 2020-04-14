@@ -9,7 +9,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "run-s verify test-*",
+    "test-cra": "react-scripts test",
+    "debug:test-cra": "react-scripts --inspect-brk test --runInBand --no-cache",
     "eject": "react-scripts eject",
     "verify": "run-p verify-*",
     "verify-lint": "yarn _lint",
