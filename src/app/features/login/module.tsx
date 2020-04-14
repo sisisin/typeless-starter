@@ -1,7 +1,7 @@
 import React from 'react';
+import { SessionActions } from '../session/interface';
 import { LoginView } from './components/LoginView';
 import { LoginActions, handle } from './interface';
-import { SessionActions } from '../session/interface';
 import { login } from 'app/services/http/login';
 
 // --- Epic ---

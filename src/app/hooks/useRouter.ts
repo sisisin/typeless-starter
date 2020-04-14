@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-imports */
-import { appHistory } from 'app/services/appHistory';
 import { useRouteMatch } from 'react-router-dom';
+import { appHistory } from 'app/services/appHistory';
 
 export const useRouter = <T>() => {
   const history = appHistory;

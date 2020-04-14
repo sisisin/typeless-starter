@@ -1,7 +1,7 @@
-import { useIsLoggedIn } from 'app/features/session/selector';
 import React from 'react';
 import { Redirect, Route, RouteProps, Switch } from 'react-router-dom';
 import { HeaderMenu } from './HeaderMenu';
+import { useIsLoggedIn } from 'app/features/session/selector';
 import { useRouter } from 'app/hooks/useRouter';
 import { appRouteDefinitions } from 'app/types/AppRouteDefinitions';
 import { AuthGuardType } from 'app/types/AuthGuardType';

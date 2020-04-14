@@ -1,5 +1,5 @@
-import { appHistory } from 'app/services/appHistory';
 import { handle, SessionActions, SessionState } from './interface';
+import { appHistory } from 'app/services/appHistory';
 
 const sessKey = 'sess_key';
 

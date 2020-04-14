@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as serviceWorker from './serviceWorker';
 import { Hmr, startHmr, TypelessContext } from 'typeless';
+import * as serviceWorker from './serviceWorker';
 import { AppRegistry } from 'app/services/AppRegistry';
+
 const appRegistry = new AppRegistry();
 
 const MOUNT_NODE = document.getElementById('root');

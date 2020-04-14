@@ -1,10 +1,10 @@
-import { appHistory } from 'app/services/appHistory';
-import { AppPaths, appRouteDefinitions, GetOptionFromPath } from 'app/types/AppRouteDefinitions';
 import React from 'react';
 import { Action, Deps, Epic, Registry, TypelessContext } from 'typeless';
 import * as Rx from 'typeless/rx';
-import { useSessionModule } from 'app/features/session/module';
 import renderer from 'react-test-renderer';
+import { useSessionModule } from 'app/features/session/module';
+import { AppPaths, appRouteDefinitions, GetOptionFromPath } from 'app/types/AppRouteDefinitions';
+import { appHistory } from 'app/services/appHistory';
 
 export async function navigateAndWaitForRendered<T extends AppPaths>(path: T, option: GetOptionFromPath<T>) {
   appHistory.push(path, option);

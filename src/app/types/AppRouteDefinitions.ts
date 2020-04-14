@@ -1,6 +1,6 @@
 import loadable, { LoadableComponent } from '@loadable/component';
-import { ToUnion, ToStringObject } from 'app/types/utility';
 import { AuthGuardType } from './AuthGuardType';
+import { ToUnion, ToStringObject } from 'app/types/utility';
 
 type RouteDefinitionsBase = {
   [key: string]: {

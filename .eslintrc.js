@@ -13,7 +13,15 @@ module.exports = {
     'plugin:jest/style',
     'plugin:prettier/recommended',
     'prettier/react',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
   ],
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
+    'import/ignore': ['react', 'typeless'],
+  },
   plugins: ['@typescript-eslint'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -24,6 +32,9 @@ module.exports = {
   rules: {
     // '@typescript-eslint/no-floating-promises': 'error',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    'import/order': 'error',
+    'import/no-default-export': 'error',
+    'import/newline-after-import': 'error',
     'no-restricted-imports': [
       'error',
       {

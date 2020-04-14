@@ -1,5 +1,6 @@
 const path = require('path');
 const { execSync } = require('child_process');
+
 module.exports = function generate(plop) {
   plop.setActionType('addRoute', async (answers, config, plop) => {
     const route = plop.renderString('/{{snakeCase name}}', answers);

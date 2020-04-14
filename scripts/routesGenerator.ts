@@ -1,7 +1,7 @@
 import path from 'path';
+import { exec } from 'child_process';
 import { Project, TypeGuards } from 'ts-morph';
 import * as commandpost from 'commandpost';
-import { exec } from 'child_process';
 
 function createProject() {
   return new Project({ tsConfigFilePath: path.join(process.cwd(), 'tsconfig.json') });

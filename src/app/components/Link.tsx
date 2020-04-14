@@ -1,9 +1,9 @@
-import { useRouter } from 'app/hooks/useRouter';
-import { AppPaths, GetOptionFromPath } from 'app/types/AppRouteDefinitions';
-import { LocationSource } from 'app/types/location';
 import React from 'react';
 // eslint-disable-next-line no-restricted-imports
 import { Link as RouterLink } from 'react-router-dom';
+import { useRouter } from 'app/hooks/useRouter';
+import { AppPaths, GetOptionFromPath } from 'app/types/AppRouteDefinitions';
+import { LocationSource } from 'app/types/location';
 
 export function TypedLink<T extends AppPaths>(
   props: React.PropsWithChildren<{ path: T } & GetOptionFromPath<T>>,

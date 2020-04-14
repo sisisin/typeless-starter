@@ -1,7 +1,7 @@
-import { AppPaths, GetOptionFromPath } from 'app/types/AppRouteDefinitions';
-import { LocationOption, LocationSource } from 'app/types/location';
 import { createBrowserHistory, History, LocationState } from 'history';
 import { generatePath } from 'react-router-dom';
+import { AppPaths, GetOptionFromPath } from 'app/types/AppRouteDefinitions';
+import { LocationOption, LocationSource } from 'app/types/location';
 
 class AppHistory {
   constructor(private history: History<LocationState>) {}

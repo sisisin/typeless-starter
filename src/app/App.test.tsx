@@ -1,10 +1,9 @@
-import { LoginModule } from 'app/features/login/module';
-import { render, TestProvider } from 'app/testHelpers/unitTest';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
 import { SampleModule } from './features/sample/module';
-import { navigateAndWaitForRendered } from './testHelpers/unitTest';
+import { render, TestProvider, navigateAndWaitForRendered } from 'app/testHelpers/unitTest';
+import { LoginModule } from 'app/features/login/module';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
