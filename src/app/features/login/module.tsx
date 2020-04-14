@@ -11,7 +11,8 @@ export const epic = handle.epic().on(LoginActions.loginSubmitted, async () => {
 });
 
 // --- Module ---
+const useLoginModule = handle;
 export const LoginModule = () => {
-  handle();
+  useLoginModule();
   return <LoginView />;
 };

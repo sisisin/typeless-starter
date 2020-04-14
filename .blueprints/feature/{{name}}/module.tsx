@@ -13,7 +13,8 @@ const initialState: {{pascalCase name}}State = {
 export const reducer = handle.reducer(initialState);
 
 // --- Module ---
+const use{{pascalCase name}}Module = handle;
 export const {{pascalCase name}}Module = () => {
-  handle();
+  use{{pascalCase name}}Module();
   return <{{pascalCase name}}View />;
 };

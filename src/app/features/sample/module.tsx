@@ -12,7 +12,9 @@ const initialState: SampleState = {
 
 export const reducer = handle.reducer(initialState);
 
+// --- Module ---
+const useSampleModule = handle;
 export const SampleModule = () => {
-  handle();
+  useSampleModule();
   return <SampleView />;
 };
