@@ -1,10 +1,22 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@2.0.1
+  node: circleci/node@2.0.2
+
+jobs:
+  test:
+    executor:
+      name: node/default
+      tag: 12.16.0
+    steps:
+      - checkout
+      - node/install-packages:
+          cache-version: v1
+          cache-key: yarn.lock
+          pkg-manager: yarn
+      - run: yarn test
 
 workflows:
   default:
     jobs:
-      - node/test:
-          version: 12.16.0
+      - test

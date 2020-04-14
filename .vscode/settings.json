@@ -27,5 +27,5 @@
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "prettier.disableLanguages": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "cSpell.words": ["unmount", "typeless"]
+  "cSpell.words": ["circleci", "typeless", "unmount"]
 }
