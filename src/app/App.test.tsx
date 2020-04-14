@@ -1,9 +1,9 @@
 import { LoginModule } from 'app/features/login/module';
-import { TestProvider } from 'app/testHelpers/unitTest';
+import { render, TestProvider } from 'app/testHelpers/unitTest';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import renderer from 'react-test-renderer';
 import { App } from './App';
+import { SampleModule } from './features/sample/module';
 import { navigateAndWaitForRendered } from './testHelpers/unitTest';
 
 it('renders without crashing', () => {
@@ -19,11 +19,19 @@ it('renders without crashing', () => {
 });
 
 it('renders login', async () => {
-  const node = renderer.create(
-    <TestProvider>
-      <App></App>
-    </TestProvider>,
-  );
+  const node = render(<App></App>, { withAuth: false });
   await navigateAndWaitForRendered('/login', { queryParams: {} });
   expect(node).toRenderComponent(LoginModule);
+});
+
+it('renders sample with /', async () => {
+  const node = render(<App></App>, { withAuth: true });
+  await navigateAndWaitForRendered('/', {});
+  expect(node).toRenderComponent(SampleModule);
+});
+
+it('renders sample with /sample', async () => {
+  const node = render(<App></App>, { withAuth: true });
+  await navigateAndWaitForRendered('/sample', {});
+  expect(node).toRenderComponent(SampleModule);
 });

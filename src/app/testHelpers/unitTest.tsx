@@ -3,6 +3,8 @@ import { AppPaths, appRouteDefinitions, GetOptionFromPath } from 'app/types/AppR
 import React from 'react';
 import { Action, Deps, Epic, Registry, TypelessContext } from 'typeless';
 import * as Rx from 'typeless/rx';
+import { useSessionModule } from 'app/features/session/module';
+import renderer from 'react-test-renderer';
 
 export async function navigateAndWaitForRendered<T extends AppPaths>(path: T, option: GetOptionFromPath<T>) {
   appHistory.push(path, option);
@@ -13,6 +15,15 @@ export async function navigateAndWaitForRendered<T extends AppPaths>(path: T, op
 
 export const TestProvider: React.FC = (props) => {
   return <TypelessContext.Provider value={{ registry: new Registry() }}>{props.children}</TypelessContext.Provider>;
+};
+
+export const render = (node: React.ReactElement, option: { withAuth: boolean }) => {
+  if (option.withAuth) {
+    useSessionModule.reset();
+    useSessionModule.reducer({ user: { name: 'some name' } });
+  }
+
+  return renderer.create(<TestProvider>{node}</TestProvider>);
 };
 
 export async function runEpic<T = any[]>(sourceEpic: Epic, action: any): Promise<T[]> {
