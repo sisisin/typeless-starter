@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import { App } from './App';
-import { navigateAndWaitRendered } from './testHelpers/unitTest';
+import { navigateAndWaitForRendered } from './testHelpers/unitTest';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -24,6 +24,6 @@ it('renders login', async () => {
       <App></App>
     </TestProvider>,
   );
-  await navigateAndWaitRendered('/login', { queryParams: {} });
+  await navigateAndWaitForRendered('/login', { queryParams: {} });
   expect(node).toRenderComponent(LoginModule);
 });

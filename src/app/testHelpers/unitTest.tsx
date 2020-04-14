@@ -4,7 +4,7 @@ import React from 'react';
 import { Action, Deps, Epic, Registry, TypelessContext } from 'typeless';
 import * as Rx from 'typeless/rx';
 
-export async function navigateAndWaitRendered<T extends AppPaths>(path: T, option: GetOptionFromPath<T>) {
+export async function navigateAndWaitForRendered<T extends AppPaths>(path: T, option: GetOptionFromPath<T>) {
   appHistory.push(path, option);
   await Object.values(appRouteDefinitions)
     .find(({ path: p }) => (p as string | string[]).indexOf(path) > -1)
