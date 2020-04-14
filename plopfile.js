@@ -3,10 +3,11 @@ const { execSync } = require('child_process');
 module.exports = function generate(plop) {
   plop.setActionType('addRoute', async (answers, config, plop) => {
     const route = plop.renderString('{{snakeCase name}}', answers);
+    const moduleName = plop.renderString('{{pascalCase name}}Module', answers);
+    const options = `-r ${route} -p ${answers.name} -t ${answers.name} -m ${moduleName}`;
 
-    execSync(
-      `ts-node -P ./scripts/tsconfig.json ./scripts/routesGenerator.ts -r ${route} -p ${answers.name} -t ${answers.name}`,
-    );
+    const cmd = `ts-node -P ./scripts/tsconfig.json ./scripts/routesGenerator.ts ${options}`;
+    execSync(cmd);
   });
   plop.setGenerator('feature', {
     prompts: [
