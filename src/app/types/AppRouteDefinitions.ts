@@ -1,6 +1,6 @@
 import loadable, { LoadableComponent } from '@loadable/component';
 import { AuthGuardType } from './AuthGuardType';
-import { ToUnion, ToStringObject } from 'app/types/utility';
+import { ToUnion, ToStringObject, ToStringObject2 } from 'app/types/utility';
 
 type RouteDefinitionsBase = {
   [key: string]: {
@@ -22,7 +22,7 @@ export const appRouteDefinitions = {
   },
   sampleWithId: {
     path: '/sample/:id',
-    params: ['id'],
+    params: ['id', 'someId'],
     authGuardType: 'private',
     Component: loadable(() =>
       import('app/features/sample/module').then((m) => ({ default: m.SampleModule })),
@@ -44,10 +44,10 @@ type Paths = {
   [K in keyof RD]: { path: ToUnion<RD[K]['path']> };
 };
 type Params = {
-  [K in keyof RD]: RD[K] extends { params: infer V } ? { params: ToStringObject<ToUnion<V>> } : {};
+  [K in keyof RD]: RD[K] extends { params: infer V } ? { params: ToStringObject<V> } : {};
 };
 type QueryParams = {
-  [K in keyof RD]: RD[K] extends { queryParams: infer W } ? { queryParams?: Partial<ToStringObject<ToUnion<W>>> } : {};
+  [K in keyof RD]: RD[K] extends { queryParams: infer W } ? { queryParams?: Partial<ToStringObject<W>> } : {};
 };
 
 export type AppPaths = Paths[keyof Paths]['path'];

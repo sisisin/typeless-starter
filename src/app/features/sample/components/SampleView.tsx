@@ -14,7 +14,7 @@ export const SampleView = () => {
         <TypedLink path="/sample">sample</TypedLink>
       </div>
       <div>
-        <TypedLink path="/sample/:id" params={{ id: '15' }}>
+        <TypedLink path="/sample/:id" params={{ id: '15', someId: '' }}>
           with path route
         </TypedLink>
       </div>
