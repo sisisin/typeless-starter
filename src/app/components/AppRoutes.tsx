@@ -1,11 +1,14 @@
 import React from 'react';
-import { Redirect, Route, RouteProps, Switch } from 'react-router-dom';
+import { Redirect, Route, RouteProps, Switch, useRouteMatch } from 'react-router-dom';
+import { useActions } from 'typeless';
 import { HeaderMenu } from './HeaderMenu';
 import { useIsLoggedIn } from 'app/features/session/selector';
 import { useRouter } from 'app/hooks/useRouter';
 import { appRouteDefinitions } from 'app/types/AppRouteDefinitions';
 import { AuthGuardType } from 'app/types/AuthGuardType';
 import { assertNever } from 'app/types/typeAssertions';
+import { RouterModule } from 'app/features/router/module';
+import { RouterActions } from 'app/features/router/interface';
 
 const AuthGuard: React.FC<{ authGuardType: AuthGuardType }> = ({ authGuardType, children }) => {
   const isLoggedIn = useIsLoggedIn();
@@ -28,7 +31,14 @@ const AuthGuard: React.FC<{ authGuardType: AuthGuardType }> = ({ authGuardType, 
       return assertNever(authGuardType);
   }
 };
-
+const R: React.FC = ({ children }) => {
+  const { params } = useRouteMatch();
+  const { routeChanged } = useActions(RouterActions);
+  React.useEffect(() => {
+    routeChanged(params);
+  });
+  return <>{children}</>;
+};
 export const AppRoutes: React.FC = () => {
   return (
     <>
@@ -44,9 +54,11 @@ export const AppRoutes: React.FC = () => {
 
           return (
             <Route {...base}>
-              <AuthGuard authGuardType={authGuardType}>
-                <Component></Component>
-              </AuthGuard>
+              <R>
+                <AuthGuard authGuardType={authGuardType}>
+                  <Component></Component>
+                </AuthGuard>
+              </R>
             </Route>
           );
         })}

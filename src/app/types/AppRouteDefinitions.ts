@@ -1,6 +1,6 @@
 import loadable, { LoadableComponent } from '@loadable/component';
 import { AuthGuardType } from './AuthGuardType';
-import { ToUnion, ToStringObject, ToStringObject2 } from 'app/types/utility';
+import { ToStringObject, ToUnion } from 'app/types/utility';
 
 type RouteDefinitionsBase = {
   [key: string]: {
@@ -46,6 +46,9 @@ type Paths = {
 type Params = {
   [K in keyof RD]: RD[K] extends { params: infer V } ? { params: ToStringObject<V> } : {};
 };
+type ParamsBody = {
+  [K in keyof Params]: Params[K] extends { params: infer V } ? V : {};
+};
 type QueryParams = {
   [K in keyof RD]: RD[K] extends { queryParams: infer W } ? { queryParams?: Partial<ToStringObject<W>> } : {};
 };
@@ -56,6 +59,9 @@ export type GetSourceFromPath<T extends AppPaths> = {
 }[keyof RD];
 export type GetOptionFromPath<T extends AppPaths> = {
   [K in keyof RD]: T extends ToUnion<RD[K]['path']> ? Params[K] & QueryParams[K] : never;
+}[keyof RD];
+export type GetParamsFromPath<T extends AppPaths> = {
+  [K in keyof RD]: T extends ToUnion<RD[K]['path']> ? ParamsBody[K] : never;
 }[keyof RD];
 
 // note: this is checking type of `RouteDefinitions`

@@ -3,7 +3,7 @@ import { SampleSymbol } from './symbol';
 
 // --- Actions ---
 export const [handle, SampleActions, getSampleState] = createModule(SampleSymbol)
-  .withActions({})
+  .withActions({ $mounted: null })
   .withState<SampleState>();
 
 // --- Types ---

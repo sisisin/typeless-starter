@@ -1,11 +1,11 @@
 import React from 'react';
 import { getSampleState } from '../interface';
 import { TypedLink } from 'app/components/Link';
-import { useRouter } from 'app/hooks/useRouter';
+import { useAppParams } from 'app/features/router/interface';
 
 export const SampleView = () => {
   const { foo } = getSampleState.useState();
-  const { params } = useRouter();
+  const params = useAppParams('/sample/:id');
   return (
     <>
       <div>Feature sample {foo}</div>
