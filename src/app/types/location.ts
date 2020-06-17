@@ -1,7 +1,7 @@
 export type LocationSource = {
   path: string;
-  params?: { [paramName: string]: string | number | boolean | undefined } | undefined;
-  queryParams?: Record<string, string> | undefined;
+  params?: { [paramName: string]: string } | {};
+  queryParams?: Record<string, string> | {};
 };
 export type LocationOption = {
   params?: { [paramName: string]: string | number | boolean | undefined } | undefined;
