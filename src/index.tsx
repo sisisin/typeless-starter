@@ -16,11 +16,13 @@ const render = () => {
   const App = require('./app/App').App;
   ReactDOM.unmountComponentAtNode(MOUNT_NODE);
   ReactDOM.render(
-    <Hmr>
-      <TypelessContext.Provider value={{ registry: appRegistry }}>
-        <App />
-      </TypelessContext.Provider>
-    </Hmr>,
+    <React.StrictMode>
+      <Hmr>
+        <TypelessContext.Provider value={{ registry: appRegistry }}>
+          <App />
+        </TypelessContext.Provider>
+      </Hmr>
+    </React.StrictMode>,
     MOUNT_NODE,
   );
 };
