@@ -30,7 +30,7 @@ module.exports = {
   },
   env: { browser: true, jest: true, es6: true },
   rules: {
-    // '@typescript-eslint/no-floating-promises': 'error',
+    '@typescript-eslint/no-floating-promises': 'error',
     '@typescript-eslint/explicit-function-return-type': 'off',
     'import/order': 'error',
     'import/no-default-export': 'error',
@@ -59,6 +59,7 @@ module.exports = {
       parser: 'esprima',
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-floating-promises': 'off',
       },
     },
     {

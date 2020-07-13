@@ -23,7 +23,7 @@ const root = commandpost
   .option('-p, --path <name>', 'specify target feature path')
   .option('-m --module <name>', 'specify module name')
   .action((opts, args) => {
-    generateRoute(opts).then(() => {
+    return generateRoute(opts).then(() => {
       exec(`yarn eslint ${routesFilePath} --fix`, (err, stdout, stderr) => {
         console.log(err, stdout, stderr);
       });
